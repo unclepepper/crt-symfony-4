@@ -9,7 +9,7 @@ services:
       - ./db/backup.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
         POSTGRES_PASSWORD: password
-        POSTGRES_DB: symfony-4
+        POSTGRES_DB: pizza
         PGDATA: /var/lib/postgresql/data/pgdata
     ports:
         - 5432:5432
