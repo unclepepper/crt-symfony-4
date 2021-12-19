@@ -3,112 +3,69 @@
 {% block title %}Pizza{% endblock %}
 
 {% block body %}
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">HappyPizza</h1>
+           
+            <p class="fs-5 text-muted">Большая порция вашего удовольствия. Для больших людей. У нас всегда Пятница! По пятницам!</p>
+            <p class="fs-5 text-muted">Нашему меню 100 лет. Врём ещё больше.</p>
+
+        </div>
         <main>
             <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">Free</h4>
+                            <a href="/" class=" text-dark text-decoration-none">
+                                <h4 class="my-0 fw-normal">Пицца<small class="text-muted fw-light">-ягодица</small></h4>
+                            </a>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>10 users included</li>
-                                <li>2 GB of storage</li>
-                                <li>Email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                            <a href="/" class="d-flex align-items-center ">
+                            <img src="img/pizza_1.jpg" width="260" class="mb-3" style="border-radius:5px;">
+                            </a>
+                            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Хочу!</button>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">Pro</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>20 users included</li>
-                                <li>10 GB of storage</li>
-                                <li>Priority email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                        <div class="card-header py-3 text-white bg-primary border-primary">
-                            <h4 class="my-0 fw-normal">Enterprise</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>30 users included</li>
-                                <li>15 GB of storage</li>
-                                <li>Phone and email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
-                        </div>
-                    </div>
-                </div>
+          
             </div>
 
-            <h2 class="display-6 text-center mb-4">Compare plans</h2>
+            <h2 class="display-6 text-center mb-4">Создай пиццу своей мечты на свой вкус</h2>
 
             <div class="table-responsive">
                 <table class="table text-center">
                     <thead>
                         <tr>
                             <th style="width: 34%;"></th>
-                            <th style="width: 22%;">Free</th>
-                            <th style="width: 22%;">Pro</th>
-                            <th style="width: 22%;">Enterprise</th>
+                            <th style="width: 22%;">Пышное тесто</th>
+                            <th style="width: 22%;">Тонкое тесто</th>
+                            <th style="width: 22%;">Слоеное тесто</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row" class="text-start">Public</th>
+                            <th scope="row" class="text-start">Сыр</th>
                             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
                             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
                             <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
                         </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Private</th>
-                            <td></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                        </tr>
+                       
                     </tbody>
 
                     <tbody>
-                        <tr>
-                            <th scope="row" class="text-start">Permissions</th>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                         <tr>
+                            <th scope="row" class="text-start">Томаты</th>
+                            <td><a href="#" class="text-decoration-none text-dark">Добавить</a></td>
+                            <td><a href="#" class="text-decoration-none text-dark">Добавить</a></td>
+                            <td><a href="#" class="text-decoration-none text-dark">Добавить</a></td>
+
+                            
                         </tr>
                         <tr>
-                            <th scope="row" class="text-start">Sharing</th>
-                            <td></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Unlimited members</th>
-                            <td></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Extra security</th>
-                            <td></td>
-                            <td></td>
-                            <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+                            <th scope="row" class="text-start">Ветчина</th>
+                            <td><a href="#" class="text-decoration-none text-dark">Добавить</a></td>
+                            <td><a href="#" class="text-decoration-none text-dark">Добавить</a></td>
+                            <td><a href="#" class="text-decoration-none text-dark">Добавить</a></td>
                         </tr>
                     </tbody>
                 </table>
