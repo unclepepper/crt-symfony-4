@@ -33,6 +33,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoRoute('Back to Home', 'fas fa-home', 'homepage');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-list');
         yield MenuItem::linkToCrud('Product', 'fas fa-pizza-slice', ProductEntity::class);
-        yield MenuItem::linkToCrud('Product', 'fas fa-pizza-slice', ProductEntity::class);
+        // yield MenuItem::linkToCrud('Product', 'fas fa-pizza-slice', ProductEntity::class);
     }
 }
