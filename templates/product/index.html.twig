@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Пицца-{{product.name}}{% endblock %}
+
+{% block body %}
+   
+    <div class="container">
+    
+    <h2 class="mb-5 text-center" >Пицца<small class="text-muted fw-light">-{{product.name}}</small></h2>
+
+    <div class="row row-cols-1 row-cols-md-4 ">
+        <div class="col-sm-4 text-start ">
+            <img src="{{ asset('img/pizza_1.jpg') }}" width="100%" class="mb-3" style="border-radius:5px;">
+         <button type="button" class="w-100 btn btn-lg btn-outline-primary">В корзину</button>
+        </div>
+        <div class="col-sm-5 text-center">
+            <p>
+                {{product.description}}
+            </p>
+        </div>
+        <div class="col-sm-3 text-end">
+            <ul class="col list-unstyled text-muat">
+                <li><strong>Цена</strong></li>
+                <li>{{product.price}} руб.</li>
+            </ul>
+        </div>
+     
+    </div>
+    
+       
+    </div>
+  
+{% endblock %}
