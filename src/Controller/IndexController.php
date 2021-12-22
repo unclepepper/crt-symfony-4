@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
-    #[Route('/', name: 'homepage')]
+    #[Route('/', name: 'index')]
     public function index(ProductRepository $doctrine): Response
     {
         

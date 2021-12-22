@@ -3,6 +3,7 @@
 {% block title %}CreativePizza{% endblock %}
 
 {% block body %}
+
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal mb-3">HappyPizza</h1>
            
@@ -22,7 +23,7 @@
                         </div>
                         <div class="card-body">
                             <a href="product/{{item.id}}" class="d-flex align-items-center ">
-                            <img src="img/pizza_1.jpg" width="260" class="mb-3" style="border-radius:5px;">
+                            <img src="{{ asset(item.image)}}" width="260" height="220" class="mb-3" style="border-radius:5px;">
                             </a>
                             <h5 class="text-start">Ингредиенты:</h5>
                             <ul class="list-unstyled mt-3 mb-4 text-start">
@@ -33,9 +34,14 @@
                                 <li>Цена <span class="text-muted">(круг/500г):  </span> <strong> {{item.price}} р</strong> </li>
 
                             </ul>
-                            
-                             <button type="button" class="w-100 btn btn-lg btn-outline-primary">Хочу!</button>
-                           
+                            <div class="row row-cols-2 d-flex justify-content-around">
+                                <div class="number">
+                                    <button class="btn btn-outline-primary number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                                    <input type="number" min="0" value="1" readonly>
+                                    <button class="btn btn-outline-primary number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                                </div>
+                                <button type="button" class="col col-sm-7 btn btn-lg btn-outline-primary">Хочу!</button>
+                            </div>
                            
                         </div>
                     </div>
@@ -43,7 +49,7 @@
           {% endfor %}
             </div>
 
-            <h2 class="display-6 text-center mb-4">Создай пиццу своей мечты на свой вкус</h2>
+            {# <h2 class="display-6 text-center mb-4">Создай пиццу своей мечты на свой вкус</h2>
 
             <div class="table-responsive">
                 <table class="table text-center">
@@ -82,6 +88,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> #}
         </main>
 {% endblock %}
