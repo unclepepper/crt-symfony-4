@@ -19,6 +19,7 @@ class Basket
      */
     private $id;
 
+    
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="basket")
      */
@@ -114,4 +115,5 @@ class Basket
 
         return $this;
     }
+    
 }

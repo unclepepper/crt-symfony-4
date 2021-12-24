@@ -14,6 +14,7 @@
         <main>
             <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
             {% for item in product %}
+                {% if item.isShow == true %}
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3">
@@ -34,18 +35,22 @@
                                 <li>Цена <span class="text-muted">(круг/500г):  </span> <strong> {{item.price}} р</strong> </li>
 
                             </ul>
-                            <div class="row row-cols-2 d-flex justify-content-around">
+                            <form  class="row row-cols-2 d-flex justify-content-around">
                                 <div class="number">
                                     <button class="btn btn-outline-primary number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
-                                    <input type="number" min="0" value="1" readonly>
+                                    <input type="number" min="0" value="1" name="quantity" readonly>
                                     <button class="btn btn-outline-primary number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
                                 </div>
-                                <button type="button" class="col col-sm-7 btn btn-lg btn-outline-primary">Хочу!</button>
-                            </div>
+                                <input type="hidden" name="product_id" value="{{item.id}}"/>
+                                <input type="hidden" name="price_product" value="{{ item.price }}"/>
+                                <button type="sybmit" class="col col-sm-7 btn btn-lg btn-outline-primary">Хочу!</button>
+                                
+                            </form>
                            
                         </div>
                     </div>
                 </div>
+                {% endif %}
           {% endfor %}
             </div>
 

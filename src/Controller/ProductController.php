@@ -9,7 +9,7 @@ use App\Repository\ProductRepository;
 
 class ProductController extends AbstractController
 {
-    #[Route('/product/{id}', name: 'product')]
+    #[Route('/product/{id}', name: 'product', requirements: ['id' => '\d+'])]
     public function index(ProductRepository $doctrine, $id): Response
     {
         $product = $doctrine->findOneBy(['id' => $id]);

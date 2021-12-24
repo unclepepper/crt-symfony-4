@@ -125,7 +125,7 @@
                 </a>
 
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto ">
-                    <a class="me-3 py-2 text-dark text-decoration-none btn" href="/">Меню</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none btn" href="/">Главная</a>
                    
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     
@@ -137,13 +137,18 @@
                     {% else %}
                          <a class="me-3 py-2 text-dark text-decoration-none btn" href="{{path('app_login')}}">Войти</a>
                     {% endif %}
+                 
                     <a href="{{path('basket')}}" class="btn  position-relative" style="width:50px">
                     <i class="fas fa-shopping-basket"></i>
+                    
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         1
                         <span class="visually-hidden">количество товаров</span>
                     </span>
+                 
+                   
                     </a>
+                 
                 </nav>
             </div>
 
