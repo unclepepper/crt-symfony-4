@@ -1,5 +1,8 @@
 # crt-symfony-4
 
+run docker-compose up -d --build
+run docker-compose exec app composer i
+
 ## Задание #4
 Создание сайта для онлайн-заказа пиццы
 В качестве скелета приложения используем
