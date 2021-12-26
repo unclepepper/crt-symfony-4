@@ -1,3 +1,5 @@
+docker-compose.symfonyyml
+docker-compose.override.yml
 .vscode
 .composer
 ###> symfony/framework-bundle ###
