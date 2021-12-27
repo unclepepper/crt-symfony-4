@@ -1,7 +1,18 @@
 # crt-symfony-4
 
-run docker-compose up -d --build
-run docker-compose exec app composer i
+Застрял на корзине...
+
+## Для запуска проекта выполнить следующие команды:
+
+* docker-compose up -d --build
+* docker-compose exec app composer i
+### Admin:
+* email: admin@admin.ru
+* password: admin@admin.ru
+### User:
+* email: user@user.ru
+* password: user@user.ru
+
 
 ## Задание #4
 Создание сайта для онлайн-заказа пиццы
