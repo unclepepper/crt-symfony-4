@@ -141,12 +141,13 @@
                  
                     <a href="{{path('basket')}}" class="btn  position-relative" style="width:50px">
                     <i class="fas fa-shopping-basket"></i>
-                    {% for items in count %}
+                   {% if count == 0 %}
+                   {% else %}
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{items.basketsInfo}}
+                        {{count}}
                         <span class="visually-hidden">количество товаров</span>
                     </span>
-                     {% endfor %} 
+                   {% endif %}
                    
                     </a>
                  
