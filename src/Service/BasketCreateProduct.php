@@ -12,13 +12,21 @@ use App\Service\BasketChangeProduct;
 
 class BasketCreateProduct
 {
-    public function addBasket(Request $request, EntityManagerInterface $entityManager, ProductRepository $doctrine):?int
+    private ProductRepository $doctrine;
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(ProductRepository $doctrine, EntityManagerInterface $entityManager)
+    {
+        $this->doctrine = $doctrine;
+        $this->entityManager = $entityManager;
+    }
+    public function addBasket(Request $request):?int
     {
         if ($request->getMethod() == Request::METHOD_POST) {
             $quantity = $request->request->get('quantity');
             $product_id = $request->request->get('product_id');
             $price_product= $request->request->get('price_product');
-            $product = $doctrine->findOneBy(['id' => $product_id]);
+            $product = $this->doctrine->findOneBy(['id' => $product_id]);
             
             $basket = (new Basket())
                 ->setQuantity($quantity)
@@ -27,8 +35,8 @@ class BasketCreateProduct
                 ->setProductId($product)
                 ;
         
-            $entityManager->persist($basket);
-            $entityManager->flush();
+            $this->entityManager->persist($basket);
+            $this->entityManager->flush();
         }
         return $product_id;
     }

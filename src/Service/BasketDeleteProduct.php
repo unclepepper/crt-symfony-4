@@ -10,11 +10,20 @@ use App\Entity\Product;
 
 class BasketDeleteProduct
 {
-    public function deleteBasket(EntityManagerInterface $entityManager, BasketRepository $doctrine, $id):void
-    {
-        $basket= $doctrine->findOneBy(['id' => $id]);
+    private BasketRepository $doctrine;
+    private EntityManagerInterface $entityManager;
 
-        $entityManager->remove($basket);
-        $entityManager->flush();
+    public function __construct(BasketRepository $doctrine, EntityManagerInterface $entityManager)
+    {
+        $this->doctrine = $doctrine;
+        $this->entityManager = $entityManager;
+    }
+    
+    public function deleteBasket($id):void
+    {
+        $basket= $this->doctrine->findOneBy(['id' => $id]);
+
+        $this->entityManager->remove($basket);
+        $this->entityManager->flush();
     }
 }

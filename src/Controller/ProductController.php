@@ -16,7 +16,6 @@ use App\Service\BasketChangeProduct;
 use App\Service\BasketCreateProduct;
 use App\Service\BasketDeleteProduct;
 
-
 class ProductController extends AbstractController
 {
        
@@ -32,28 +31,26 @@ class ProductController extends AbstractController
     }
     
     #[Route('/product/addBasket', name: 'addBasket')]
-    public function addBasket(BasketCreateProduct $basketCreate, Request $request, EntityManagerInterface $entityManager, ProductRepository $doctrine):Response
+    public function addBasket(BasketCreateProduct $basketCreate, Request $request):Response
     {
-        $product_id = $basketCreate->addBasket($request, $entityManager, $doctrine);
+        $product_id = $basketCreate->addBasket($request);
         return $this->redirectToRoute('product', ['id' => $product_id ]);
     }
 
     #[Route('/product/changeBasket', name: 'changeBasket')]
-    public function changeBasket(BasketChangeProduct $basketChange, Request $request, EntityManagerInterface $entityManager, BasketRepository $doctrine):Response
+    public function changeBasket(BasketChangeProduct $basketChange, Request $request):Response
     {
-        $basketChange->changeBasket($request, $entityManager, $doctrine);
+        $basketChange->changeBasket($request);
         return $this->redirectToRoute('basket');
     }
 
     #[Route('/product/deleteBasket/{id}', name: 'deleteBasket', requirements: ['id' => '\d+'])]
-    public function deleteBasket(BasketDeleteProduct $basketDelete, EntityManagerInterface $entityManager, BasketRepository $doctrine, $id):Response
+    public function deleteBasket(BasketDeleteProduct $basketDelete, $id):Response
     {
-        $basketDelete->deleteBasket($entityManager, $doctrine, $id);
+        $basketDelete->deleteBasket($id);
         return $this->redirectToRoute('basket');
     }
 
-       
-    
     #[Route('/product/basket', name: 'basket')]
     public function basket(BasketRepository $doctrine): Response
     {
@@ -63,8 +60,7 @@ class ProductController extends AbstractController
             $baskets = false;
             $title = 'Корзина пуста';
         }
-       
-       
+        
         return $this->render(
             'basket/index.html.twig',
             [
