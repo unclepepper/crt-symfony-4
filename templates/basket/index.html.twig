@@ -3,46 +3,58 @@
 {% block title %}Hello BasketController!{% endblock %}
 
 {% block body %}
-        
-             <h2 class="display-6 text-center mb-4"><i>Корзина</i></h2>
-            {% if baskets == false %}
-             <h2 class="display-6 text-center mb-4"><i>пуста</i></h2>
-             {% else %}
-{% for basket in baskets %}
+
+   
+      
+             <h2 class="display-6 text-center mb-4"><i>{{title}}</i></h2>
+           
+                {% for basket in baskets %}
+                
             <div class="container">
     
-    <h2 class="mb-5 text-center" >Пицца<small class="text-muted fw-light">-{{basket.id}}</small></h2>
-{# 
+    <h2 class="mb-5 text-center" >Пицца<small class="text-muted fw-light">-{{basket.getProductId().name}}</small></h2>
+
     <div class="row row-cols-1 row-cols-md-4 ">
         <div class="col-sm-4 text-start ">
-            <img src="{{ asset(basket.product.image)}}" width="100%" class="mb-3" style="border-radius:5px;">
-            <form action="{{ path('addBasket') }}" method="post" class="row row-cols-2 d-flex justify-content-around">
+            <img src="{{ asset(basket.getProductId().image)}}" width="100%" class="mb-3" style="border-radius:5px;">
+            <form action="{{ path('changeBasket') }}" method="post" class="row row-cols-2 d-flex justify-content-around">
                 <div class="number">
                     <button class="btn btn-outline-primary number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
-                    <input type="number" min="0" value="1" name="quantity" id="quantity" readonly>
+                    <input type="number" min="0" value="{{basket.quantity}}" name="quantity" id="quantity" readonly>
                     <button class="btn btn-outline-primary number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
                 </div>
-                    <input type="hidden" name="product_id" id="product_id" value="{{product.id}}"/>
-                    <input type="hidden" name="price_product" id="price_product" value="{{ product.price }}"/>
-                    <button type="submit" class="col col-sm-7 btn btn-lg btn-outline-primary">В корзину</button>
+                    <input type="hidden" name="product_id" id="product_id" value="{{basket.id}}"/>
+                    <input type="hidden" name="price_product" id="price_product" value="{{ basket.priceOne }}"/>
+                    <button type="submit" class="col col-sm-7 btn btn-lg btn-outline-primary">Изменить</button>
+                     
             </form>
         </div>
         <div class="col-sm-5 text-center">
             <p>
-                {{basket.product.description}}
+                {{basket.getProductId().description}}
             </p>
         </div>
         <div class="col-sm-3 text-end">
             <ul class="col list-unstyled text-muat">
-                <li><strong>Цена</strong></li>
-                <li>{{basket.product.price}} руб.</li>
+                <li><strong>Количество: </strong> {{basket.quantity}} шт.</li>
             </ul>
+            <ul class="col list-unstyled text-muat">
+                <li><strong>Цена: </strong> {{basket.priceOne}} руб.</li>
+            </ul>
+            
+             <ul class="col list-unstyled text-muat"> 
+                <li><strong>Сумма: </strong> {{basket.priceTotal}} руб.</li>
+            </ul>
+            <ul class="col list-unstyled text-muat">
+                <li><a href="deleteBasket/{{basket.id}}" class="btn btn-primary">Удалить</a></li>
+            </ul>
+            
         </div>
      
     </div>
     
        
-    </div> #}
+    </div>
 
 
 {% endfor %}
@@ -108,6 +120,6 @@
                     <button type="submit" class="btn btn-primary ">Оформить заказ</button>
                 </div>
             </div>  #}
-           {% endif %}
+           {# {% endif %} #}
            
 {% endblock %}

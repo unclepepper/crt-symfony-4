@@ -1,6 +1,8 @@
 <?php
 namespace App\EventSubscriber;
 
+ use App\Repository\BasketRepository;
+ use App\Entity\Basket;
  use App\Repository\ConferenceRepository;
  use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -19,11 +21,12 @@ class TwigEventSubscriber implements EventSubscriberInterface
 
      public function onKernelController(ControllerEvent $event)
      {
-          $this->twig->addGlobal('menu', [
+          
+          $this->twig->addGlobal('count', [
 
           [
-               'name' => 'Главная',
-               'path' => 'index',
+               'basketsInfo' => 1,
+              
           ]
           ]);
      }

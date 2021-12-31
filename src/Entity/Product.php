@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,27 +17,27 @@ class Product
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isShow;
+    private bool $isShow = false;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $price;
+    private int $price;
 
     /**
      * @ORM\ManyToOne(targetEntity=Basket::class, inversedBy="product")
@@ -46,6 +48,16 @@ class Product
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Basket::class, mappedBy="product_id")
+     */
+    private $baskets;
+
+    public function __construct()
+    {
+        $this->baskets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,6 +138,36 @@ class Product
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Basket[]
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
+    }
+
+    public function addBasket(Basket $basket): self
+    {
+        if (!$this->baskets->contains($basket)) {
+            $this->baskets[] = $basket;
+            $basket->setProductId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): self
+    {
+        if ($this->baskets->removeElement($basket)) {
+            // set the owning side to null (unless already changed)
+            if ($basket->getProductId() === $this) {
+                $basket->setProductId(null);
+            }
+        }
+
+        return $this;
     }
     
 }

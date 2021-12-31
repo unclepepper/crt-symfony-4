@@ -17,7 +17,7 @@ class Basket
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     
     /**
@@ -28,17 +28,22 @@ class Basket
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;
+    private ?int $quantity = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $price_one;
+    private ?int $price_one = null;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $price_total;
+    private ?int $price_total = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="baskets")
+     */
+    private  $product_id;
 
     public function __construct()
     {
@@ -112,6 +117,18 @@ class Basket
     public function setPriceTotal(int $price_total): self
     {
         $this->price_total = $price_total;
+
+        return $this;
+    }
+
+    public function getProductId(): ?Product
+    {
+        return $this->product_id;
+    }
+
+    public function setProductId(?Product $product_id): self
+    {
+        $this->product_id = $product_id;
 
         return $this;
     }

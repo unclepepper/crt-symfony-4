@@ -3,8 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ProductRepository;
-use App\Repository\BasketRepository;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,13 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(ProductRepository $doctrine): Response
+    public function index(ProductRepository $prodDoctrine): Response
     {
         
-        $product = $doctrine->findAll();
+        $product = $prodDoctrine->findAll();
+        
         return $this->render('index/index.html.twig', [
-            'product' => $product,
-            
+            'product' => $product,            
         ]);
     }
     

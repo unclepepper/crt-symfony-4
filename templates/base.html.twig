@@ -125,9 +125,9 @@
                 </a>
 
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto ">
-                 {% for items in menu %}
-                    <a class="me-3 py-2 text-dark text-decoration-none btn" href="{{path(items.path)}}">{{items.name}}</a>
-                  {% endfor %} 
+                
+                    <a class="me-3 py-2 text-dark text-decoration-none btn" href="{{path('index')}}">Главная</a>
+                 
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     
                     <a class="me-3 py-2 text-dark text-decoration-none btn" href="{{path('app_logout')}}">{{ app.user.username }}</a>
@@ -141,12 +141,12 @@
                  
                     <a href="{{path('basket')}}" class="btn  position-relative" style="width:50px">
                     <i class="fas fa-shopping-basket"></i>
-                    
+                    {% for items in count %}
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        1
+                        {{items.basketsInfo}}
                         <span class="visually-hidden">количество товаров</span>
                     </span>
-                 
+                     {% endfor %} 
                    
                     </a>
                  

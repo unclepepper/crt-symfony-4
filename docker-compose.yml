@@ -17,7 +17,7 @@ services:
      
   app:
     build:
-      context: ./php-fpm
+      context: ./docker/php-fpm
       args:
         PUID: ${PUID}
         PGID: ${PGID}
@@ -31,8 +31,8 @@ services:
     image: nginx:alpine
     volumes:
       - .:/var/www/
-      - ./nginx/conf.d/:/etc/nginx/conf.d
-      - ./logs:/var/log
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+      - ./docker/logs:/var/log
     depends_on:
       - app
     

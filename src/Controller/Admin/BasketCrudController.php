@@ -23,7 +23,7 @@ class BasketCrudController extends AbstractCrudController
             NumberField::new('quantity'),
 
             NumberField::new('price_total'),
-           AssociationField::new('product'),
+           AssociationField::new('product_id'),
 
            
         ];
