@@ -24,7 +24,6 @@ class ProductController extends AbstractController
     public function index(ProductRepository $doctrine, $id): Response
     {
         $product = $doctrine->findOneBy(['id' => $id]);
-
         return $this->render('product/index.html.twig', [
             'product' => $product,
         ]);
@@ -33,6 +32,7 @@ class ProductController extends AbstractController
     #[Route('/product/addBasket', name: 'addBasket')]
     public function addBasket(BasketCreateProduct $basketCreate, Request $request):Response
     {
+        
         $product_id = $basketCreate->addBasket($request);
         return $this->redirectToRoute('product', ['id' => $product_id ]);
     }

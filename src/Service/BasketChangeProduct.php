@@ -26,7 +26,6 @@ class BasketChangeProduct
             $price_product= $request->request->get('price_product');
                        
             $basket= $this->doctrine->findOneBy(['id' => $product_id]);
-
             $basket
                 ->setQuantity($quantity)
                 ->setPriceOne($price_product)
