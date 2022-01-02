@@ -45,6 +45,11 @@ class Basket
      */
     private  $product_id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="basket_id")
+     */
+    private $order_id;
+
     public function __construct()
     {
         $this->product = new ArrayCollection();
@@ -129,6 +134,18 @@ class Basket
     public function setProductId(?Product $product_id): self
     {
         $this->product_id = $product_id;
+
+        return $this;
+    }
+
+    public function getOrderId(): ?Order
+    {
+        return $this->order_id;
+    }
+
+    public function setOrderId(?Order $order_id): self
+    {
+        $this->order_id = $order_id;
 
         return $this;
     }

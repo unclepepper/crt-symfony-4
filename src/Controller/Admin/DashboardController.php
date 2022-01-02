@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Product as ProductEntity;
 use App\Entity\Basket as BasketEntity;
 use App\Entity\User as UserEntity;
+use App\Entity\Order as OrderEntity;
+
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 class DashboardController extends AbstractDashboardController
@@ -37,6 +39,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Product', 'fas fa-pizza-slice', ProductEntity::class);
         yield MenuItem::linkToCrud('Basket', 'fas fa-shopping-basket', BasketEntity::class);
         yield MenuItem::linkToCrud('User', 'fas fa-user', UserEntity::class);
+        yield MenuItem::linkToCrud('Order', 'fas fa-list', OrderEntity::class);
+
 
     }
 }
