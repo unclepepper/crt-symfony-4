@@ -27,4 +27,15 @@ class BasketTotalPosition
         }
         return $totalPosition;
     }
+    public function totalPrice():?int
+    {
+        $totalPrice = 0;
+        $baskets = $this->doctrine->findAll();
+        if ($baskets) {
+            foreach ($baskets as $basket) {
+                $totalPrice += $basket->getPriceTotal();
+            }
+        }
+        return $totalPrice;
+    }
 }
