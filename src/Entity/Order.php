@@ -35,9 +35,15 @@ class Order
      */
     private $basket_id = [];
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Basket::class, inversedBy="orders")
+     */
+    private $basket;
+
     public function __construct()
     {
         $this->basket_id = new ArrayCollection();
+        $this->basket = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,6 +101,30 @@ class Order
                 $basketId->setOrderId(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Basket[]
+     */
+    public function getBasket(): Collection
+    {
+        return $this->basket;
+    }
+
+    public function addBasket(Basket $basket): self
+    {
+        if (!$this->basket->contains($basket)) {
+            $this->basket[] = $basket;
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): self
+    {
+        $this->basket->removeElement($basket);
 
         return $this;
     }

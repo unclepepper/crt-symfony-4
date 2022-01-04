@@ -49,10 +49,14 @@
             <h5 class="text-left mb-4"><i>Вы заказали <b>{{count}}</b> позиций, на сумму <b>{{total}}</b> рубл.</i></h5>
           {% endif %}
           <h5 class="text-left mb-4"><i>Введите пожалуйста свое имя и телефон</i></h5>
-        {{ form_start(form) }}
-                
-        {{form_widget(form)}}
-           <button type="submit" class="btn btn-lg btn-primary">Оформить заказ</button> 
-        {{ form_end(form) }}
- {# <a href="{{ path('order/pay') }}" class="btn btn-primary">Оформить заказ</a> #}
+          <form action="{{ path('orderAdd') }}" method="post">
+            <label for="inputEmail" class="mb-2">Имя</label>
+            <input type="name" name="client_name" class="form-control mb-3"/> 
+
+            <label for="inputEmail" class="mb-2">Телефон</label>
+            <input type="phone" name="client_phone" class="form-control mb-3"/> 
+             <button type="submit" class="btn btn-lg btn-primary">Оформить заказ</button> 
+            </form>      
+      
+ {# <a href="{{ path('orderAdd') }}" class="btn btn-primary">Оформить заказ</a> #}
 {% endblock %}

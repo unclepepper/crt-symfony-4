@@ -22,7 +22,9 @@ class OrderCrudController extends AbstractCrudController
           
             TextField::new('client_name'),
             TextField::new('client_phone'),
-            AssociationField::new('basket_id'),
+            AssociationField::new('basket'),
+            
+
 
 
             

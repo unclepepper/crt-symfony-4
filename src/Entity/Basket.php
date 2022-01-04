@@ -50,9 +50,15 @@ class Basket
      */
     private $order_id;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="basket")
+     */
+    private $orders;
+
     public function __construct()
     {
         $this->product = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -152,6 +158,33 @@ class Basket
     public function __toString()
     {
         return $this->product_id->getName();
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->addBasket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            $order->removeBasket($this);
+        }
+
+        return $this;
     }
     
 }
