@@ -16,12 +16,12 @@ class OrderController extends AbstractController
     {
         $baskets = $basketDoctrine->findAll();
         $order = new Order();
-       
-
         $form = $this->createForm(OrderType::class, $order);
+       
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
             'baskets' => $baskets,
         ]);
     }
+    
 }

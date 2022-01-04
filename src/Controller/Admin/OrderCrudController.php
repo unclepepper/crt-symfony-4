@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 
 class OrderCrudController extends AbstractCrudController
@@ -22,7 +22,7 @@ class OrderCrudController extends AbstractCrudController
           
             TextField::new('client_name'),
             TextField::new('client_phone'),
-            CollectionField::new('basket_id'),
+            AssociationField::new('basket_id'),
 
 
             

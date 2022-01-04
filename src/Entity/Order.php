@@ -33,7 +33,7 @@ class Order
     /**
      * @ORM\OneToMany(targetEntity=Basket::class, mappedBy="order_id")
      */
-    private $basket_id;
+    private $basket_id = [];
 
     public function __construct()
     {

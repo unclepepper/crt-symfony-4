@@ -3,6 +3,8 @@
 {% block title %}Order{% endblock %}
 
 {% block body %}
+  <h2 class="display-6 text-center mb-4"><i>Заказ</i></h2>
+  
     {% if total == 0 %}
             {% else %}
 
@@ -34,7 +36,7 @@
                         <tr>
                             <th scope="row" class="text-start">ИТОГО:</th>
                             <td></td>
-                            <td>позиций: <b>{{count}}</b></td>
+                            <td></td>
                             <td>на сумму: <b> {{total}} руб.</b></td>
                         </tr>
                     </tbody>
@@ -44,7 +46,13 @@
                    
                 </div>
             </div> 
+            <h5 class="text-left mb-4"><i>Вы заказали <b>{{count}}</b> позиций, на сумму <b>{{total}}</b> рубл.</i></h5>
           {% endif %}
-{{form(form)}}
- <a href="{{ path('order') }}" class="btn btn-primary">Оформить заказ</a>
+          <h5 class="text-left mb-4"><i>Введите пожалуйста свое имя и телефон</i></h5>
+        {{ form_start(form) }}
+                
+        {{form_widget(form)}}
+           <button type="submit" class="btn btn-lg btn-primary">Оформить заказ</button> 
+        {{ form_end(form) }}
+ {# <a href="{{ path('order/pay') }}" class="btn btn-primary">Оформить заказ</a> #}
 {% endblock %}
