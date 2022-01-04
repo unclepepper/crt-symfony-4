@@ -77,6 +77,18 @@ CREATE TABLE public."order" (
 ALTER TABLE public."order" OWNER TO postgres;
 
 --
+-- Name: order_basket; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.order_basket (
+    order_id integer NOT NULL,
+    basket_id integer NOT NULL
+);
+
+
+ALTER TABLE public.order_basket OWNER TO postgres;
+
+--
 -- Name: order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -169,6 +181,7 @@ DoctrineMigrations\\Version20211221110133	2021-12-21 11:01:41	36
 DoctrineMigrations\\Version20211222122412	2022-01-02 18:17:05	140
 DoctrineMigrations\\Version20220102181653	2022-01-02 18:17:05	9
 DoctrineMigrations\\Version20220102190740	2022-01-02 19:08:01	75
+DoctrineMigrations\\Version20220104200748	2022-01-04 20:09:19	67
 \.
 
 
@@ -177,6 +190,14 @@ DoctrineMigrations\\Version20220102190740	2022-01-02 19:08:01	75
 --
 
 COPY public."order" (id, client_name, client_phone) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_basket; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.order_basket (order_id, basket_id) FROM stdin;
 \.
 
 
@@ -208,14 +229,14 @@ COPY public."user" (id, email, roles, password) FROM stdin;
 -- Name: basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.basket_id_seq', 8, true);
+SELECT pg_catalog.setval('public.basket_id_seq', 28, true);
 
 
 --
 -- Name: order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_id_seq', 1, false);
+SELECT pg_catalog.setval('public.order_id_seq', 29, true);
 
 
 --
@@ -246,6 +267,14 @@ ALTER TABLE ONLY public.basket
 
 ALTER TABLE ONLY public.doctrine_migration_versions
     ADD CONSTRAINT doctrine_migration_versions_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: order_basket order_basket_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_basket
+    ADD CONSTRAINT order_basket_pkey PRIMARY KEY (order_id, basket_id);
 
 
 --
@@ -294,6 +323,20 @@ CREATE INDEX idx_d34a04ad1be1fb52 ON public.product USING btree (basket_id);
 
 
 --
+-- Name: idx_e1c940ae1be1fb52; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_e1c940ae1be1fb52 ON public.order_basket USING btree (basket_id);
+
+
+--
+-- Name: idx_e1c940ae8d9f6d38; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_e1c940ae8d9f6d38 ON public.order_basket USING btree (order_id);
+
+
+--
 -- Name: uniq_8d93d649e7927c74; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -322,6 +365,22 @@ ALTER TABLE ONLY public.basket
 
 ALTER TABLE ONLY public.product
     ADD CONSTRAINT fk_d34a04ad1be1fb52 FOREIGN KEY (basket_id) REFERENCES public.basket(id);
+
+
+--
+-- Name: order_basket fk_e1c940ae1be1fb52; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_basket
+    ADD CONSTRAINT fk_e1c940ae1be1fb52 FOREIGN KEY (basket_id) REFERENCES public.basket(id) ON DELETE CASCADE;
+
+
+--
+-- Name: order_basket fk_e1c940ae8d9f6d38; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.order_basket
+    ADD CONSTRAINT fk_e1c940ae8d9f6d38 FOREIGN KEY (order_id) REFERENCES public."order"(id) ON DELETE CASCADE;
 
 
 --
