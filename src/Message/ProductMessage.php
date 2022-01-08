@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Message;
 
-class AlarmMessage
+class ProductMessage
 {
     private $id;
     private $context;
@@ -11,15 +12,14 @@ class AlarmMessage
         $this->id = $id;
         $this->context = $context;
     }
-    
-    public function getId():int
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getContext():array
+    public function getContext(): array
     {
         return $this->context;
     }
-    
 }

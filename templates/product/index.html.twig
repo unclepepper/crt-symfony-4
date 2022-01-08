@@ -21,6 +21,11 @@
                     <input type="hidden" name="price_product" id="price_product" value="{{ product.price }}"/>
                     <button type="submit" class="col col-sm-7 btn btn-lg btn-outline-primary">В корзину</button>
             </form>
+             {% if product.isShow == false %}
+             <a href="{{ path('show', {id: product.id}) }}">Press</a>
+             
+             {% endif %}
+
         </div>
         <div class="col-sm-5 text-center">
             <p>

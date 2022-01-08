@@ -8,13 +8,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 use App\Repository\BasketRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Basket;
-use App\Entity\Product;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+// use Doctrine\ORM\EntityManagerInterface;
+// use App\Entity\Basket;
+// use App\Entity\Product;
+use App\Message\ProductMessage;
+// use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Service\BasketChangeProduct;
 use App\Service\BasketCreateProduct;
 use App\Service\BasketDeleteProduct;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class ProductController extends AbstractController
 {
@@ -32,7 +34,6 @@ class ProductController extends AbstractController
     #[Route('/product/addBasket', name: 'addBasket')]
     public function addBasket(BasketCreateProduct $basketCreate, Request $request):Response
     {
-        
         $product_id = $basketCreate->addBasket($request);
         return $this->redirectToRoute('product', ['id' => $product_id ]);
     }
@@ -70,5 +71,12 @@ class ProductController extends AbstractController
                
             ]
         );
+    }
+    #[Route('/product/{id}/show', name: 'show')]
+    public function show(int $id, ProductRepository $productRepository, MessageBusInterface $bus): Response
+    {
+        $product = $productRepository->find($id);
+        $bus->dispatch(new ProductMessage($product->getId(), []));
+        return $this->redirectToRoute('product', ['id' => $id]);
     }
 }
