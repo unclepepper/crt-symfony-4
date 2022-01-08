@@ -35,9 +35,14 @@ services:
       - ./docker/logs:/var/log
     depends_on:
       - app
-    
     ports:
       - "80:80"
       - "443:443"
+
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
 
