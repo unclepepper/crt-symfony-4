@@ -124,7 +124,8 @@ ALTER SEQUENCE public.messenger_messages_id_seq OWNED BY public.messenger_messag
 CREATE TABLE public."order" (
     id integer NOT NULL,
     client_name character varying(255) NOT NULL,
-    client_phone character varying(255) NOT NULL
+    client_phone character varying(255) NOT NULL,
+    is_pay boolean NOT NULL
 );
 
 
@@ -227,8 +228,7 @@ ALTER TABLE ONLY public.messenger_messages ALTER COLUMN id SET DEFAULT nextval('
 --
 
 COPY public.basket (id, quantity, price_one, price_total, product_id_id, order_id_id) FROM stdin;
-74	1	350	350	5	\N
-75	2	520	1040	4	\N
+80	1	520	520	4	\N
 \.
 
 
@@ -245,7 +245,8 @@ DoctrineMigrations\\Version20211222122412	2022-01-02 18:17:05	140
 DoctrineMigrations\\Version20220102181653	2022-01-02 18:17:05	9
 DoctrineMigrations\\Version20220102190740	2022-01-02 19:08:01	75
 DoctrineMigrations\\Version20220104200748	2022-01-04 20:09:19	67
-DoctrineMigrations\\Version20220109093757	2022-01-09 09:39:21	122
+DoctrineMigrations\\Version20220109093757	2022-01-09 10:19:43	94
+DoctrineMigrations\\Version20220109102805	2022-01-09 10:28:50	41
 \.
 
 
@@ -261,8 +262,8 @@ COPY public.messenger_messages (id, body, headers, queue_name, created_at, avail
 -- Data for Name: order; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."order" (id, client_name, client_phone) FROM stdin;
-54	nikokay	9222671646
+COPY public."order" (id, client_name, client_phone, is_pay) FROM stdin;
+59	nikokay	9222671646	t
 \.
 
 
@@ -271,8 +272,7 @@ COPY public."order" (id, client_name, client_phone) FROM stdin;
 --
 
 COPY public.order_basket (order_id, basket_id) FROM stdin;
-54	74
-54	75
+59	80
 \.
 
 
@@ -304,7 +304,7 @@ COPY public."user" (id, email, roles, password) FROM stdin;
 -- Name: basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.basket_id_seq', 75, true);
+SELECT pg_catalog.setval('public.basket_id_seq', 80, true);
 
 
 --
@@ -318,7 +318,7 @@ SELECT pg_catalog.setval('public.messenger_messages_id_seq', 1, false);
 -- Name: order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_id_seq', 54, true);
+SELECT pg_catalog.setval('public.order_id_seq', 59, true);
 
 
 --
