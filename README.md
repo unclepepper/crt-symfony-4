@@ -7,6 +7,7 @@
 * docker-compose up -d --build
 * docker-compose exec app composer install
 * Dump bd - db/backup.sql (загружается автоматически)
+* docker-compose exec app bin/console messenger:consume async -vv (для запуска RabbitMQ)
 
 ### Admin:
 * email: admin@admin.ru

@@ -24,7 +24,7 @@ class OrderMessageHandler implements MessageHandlerInterface
         if (!$order) {
             return;
         }
-        // $order->setIsShow(true);
+        $order->setIsPay(true);
         $this->em->flush();
     }
 }

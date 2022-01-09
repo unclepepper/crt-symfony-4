@@ -40,6 +40,11 @@ class Order
      */
     private $basket;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isPay = false;
+
     public function __construct()
     {
         $this->basket_id = new ArrayCollection();
@@ -125,6 +130,18 @@ class Order
     public function removeBasket(Basket $basket): self
     {
         $this->basket->removeElement($basket);
+
+        return $this;
+    }
+
+    public function getIsPay(): ?bool
+    {
+        return $this->isPay;
+    }
+
+    public function setIsPay(bool $isPay): self
+    {
+        $this->isPay = $isPay;
 
         return $this;
     }

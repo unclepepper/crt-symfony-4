@@ -6,6 +6,8 @@ use App\Entity\Order;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+
 
 
 class OrderCrudController extends AbstractCrudController
@@ -23,6 +25,8 @@ class OrderCrudController extends AbstractCrudController
             TextField::new('client_name'),
             TextField::new('client_phone'),
             AssociationField::new('basket'),
+            BooleanField::new('is_pay'),
+
             
 
 
