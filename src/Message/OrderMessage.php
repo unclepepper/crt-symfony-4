@@ -2,7 +2,7 @@
 
 namespace App\Message;
 
-class ProductMessage
+class OrderMessage
 {
     private $id;
     private $context;

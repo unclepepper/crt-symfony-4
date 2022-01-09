@@ -16,6 +16,22 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: notify_messenger_messages(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.notify_messenger_messages() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+            BEGIN
+                PERFORM pg_notify('messenger_messages', NEW.queue_name::text);
+                RETURN NEW;
+            END;
+        $$;
+
+
+ALTER FUNCTION public.notify_messenger_messages() OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -62,6 +78,44 @@ CREATE TABLE public.doctrine_migration_versions (
 
 
 ALTER TABLE public.doctrine_migration_versions OWNER TO postgres;
+
+--
+-- Name: messenger_messages; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.messenger_messages (
+    id bigint NOT NULL,
+    body text NOT NULL,
+    headers text NOT NULL,
+    queue_name character varying(255) NOT NULL,
+    created_at timestamp(0) without time zone NOT NULL,
+    available_at timestamp(0) without time zone NOT NULL,
+    delivered_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone
+);
+
+
+ALTER TABLE public.messenger_messages OWNER TO postgres;
+
+--
+-- Name: messenger_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.messenger_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.messenger_messages_id_seq OWNER TO postgres;
+
+--
+-- Name: messenger_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.messenger_messages_id_seq OWNED BY public.messenger_messages.id;
+
 
 --
 -- Name: order; Type: TABLE; Schema: public; Owner: postgres
@@ -162,10 +216,19 @@ CREATE SEQUENCE public.user_id_seq
 ALTER TABLE public.user_id_seq OWNER TO postgres;
 
 --
+-- Name: messenger_messages id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.messenger_messages ALTER COLUMN id SET DEFAULT nextval('public.messenger_messages_id_seq'::regclass);
+
+
+--
 -- Data for Name: basket; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.basket (id, quantity, price_one, price_total, product_id_id, order_id_id) FROM stdin;
+74	1	350	350	5	\N
+75	2	520	1040	4	\N
 \.
 
 
@@ -182,6 +245,15 @@ DoctrineMigrations\\Version20211222122412	2022-01-02 18:17:05	140
 DoctrineMigrations\\Version20220102181653	2022-01-02 18:17:05	9
 DoctrineMigrations\\Version20220102190740	2022-01-02 19:08:01	75
 DoctrineMigrations\\Version20220104200748	2022-01-04 20:09:19	67
+DoctrineMigrations\\Version20220109093757	2022-01-09 09:39:21	122
+\.
+
+
+--
+-- Data for Name: messenger_messages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.messenger_messages (id, body, headers, queue_name, created_at, available_at, delivered_at) FROM stdin;
 \.
 
 
@@ -190,6 +262,7 @@ DoctrineMigrations\\Version20220104200748	2022-01-04 20:09:19	67
 --
 
 COPY public."order" (id, client_name, client_phone) FROM stdin;
+54	nikokay	9222671646
 \.
 
 
@@ -198,6 +271,8 @@ COPY public."order" (id, client_name, client_phone) FROM stdin;
 --
 
 COPY public.order_basket (order_id, basket_id) FROM stdin;
+54	74
+54	75
 \.
 
 
@@ -206,12 +281,12 @@ COPY public.order_basket (order_id, basket_id) FROM stdin;
 --
 
 COPY public.product (id, name, description, is_show, price, basket_id, image) FROM stdin;
+4	Ягодица	32 см, Пикантный томатный соус, сыр, салями, колбаски охотничьи, огурцы маринованные, лук репчатый, сушеный базилик	t	520	\N	img/pizza_1.jpg
 6	Кузьмич	32 см, Томат, зелень, два вида колбасы, маринованные огурцы, сыр, пышное тесто, чесночночный соус	t	269	\N	img/pizza_3.jpg
 5	Деревенская	32 см, Пикантный томатный соус, копченая куриная грудинка, ветчина, томаты, маринованные огурчики, зелень, сыр, пышное тесто	t	350	\N	img/pizza_2.jpg
 7	Моцарелла	32 см, Пикантный томатный соус, сыр, салями, колбаски охотничьи, огурцы маринованные, лук репчатый, сушеный базилик	t	404	\N	img/pizza_4.jpg
-9	С мятой	32 см, Томат, зелень, два вида колбасы, маринованные огурцы, сыр, пышное тесто, чесночночный соус	t	330	\N	img/pizza_5.jpg
 8	Ассорти	32 см, Томат, зелень, два вида колбасы, маринованные огурцы, сыр, пышное тесто, чесночночный соус.	t	590	\N	img/pizza_6.jpg
-4	Ягодица	32 см, Пикантный томатный соус, сыр, салями, колбаски охотничьи, огурцы маринованные, лук репчатый, сушеный базилик	t	520	\N	img/pizza_1.jpg
+9	С мятой	32 см, Томат, зелень, два вида колбасы, маринованные огурцы, сыр, пышное тесто, чесночночный соус	t	330	\N	img/pizza_5.jpg
 \.
 
 
@@ -229,14 +304,21 @@ COPY public."user" (id, email, roles, password) FROM stdin;
 -- Name: basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.basket_id_seq', 28, true);
+SELECT pg_catalog.setval('public.basket_id_seq', 75, true);
+
+
+--
+-- Name: messenger_messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.messenger_messages_id_seq', 1, false);
 
 
 --
 -- Name: order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.order_id_seq', 29, true);
+SELECT pg_catalog.setval('public.order_id_seq', 54, true);
 
 
 --
@@ -267,6 +349,14 @@ ALTER TABLE ONLY public.basket
 
 ALTER TABLE ONLY public.doctrine_migration_versions
     ADD CONSTRAINT doctrine_migration_versions_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: messenger_messages messenger_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.messenger_messages
+    ADD CONSTRAINT messenger_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -316,6 +406,27 @@ CREATE INDEX idx_2246507bfcdaeaaa ON public.basket USING btree (order_id_id);
 
 
 --
+-- Name: idx_75ea56e016ba31db; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_75ea56e016ba31db ON public.messenger_messages USING btree (delivered_at);
+
+
+--
+-- Name: idx_75ea56e0e3bd61ce; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_75ea56e0e3bd61ce ON public.messenger_messages USING btree (available_at);
+
+
+--
+-- Name: idx_75ea56e0fb7336f0; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_75ea56e0fb7336f0 ON public.messenger_messages USING btree (queue_name);
+
+
+--
 -- Name: idx_d34a04ad1be1fb52; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -341,6 +452,13 @@ CREATE INDEX idx_e1c940ae8d9f6d38 ON public.order_basket USING btree (order_id);
 --
 
 CREATE UNIQUE INDEX uniq_8d93d649e7927c74 ON public."user" USING btree (email);
+
+
+--
+-- Name: messenger_messages notify_trigger; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER notify_trigger AFTER INSERT OR UPDATE ON public.messenger_messages FOR EACH ROW EXECUTE FUNCTION public.notify_messenger_messages();
 
 
 --

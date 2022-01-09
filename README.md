@@ -6,13 +6,15 @@
 
 * docker-compose up -d --build
 * docker-compose exec app composer install
+* Dump bd - db/backup.sql (загружается автоматически)
+
 ### Admin:
 * email: admin@admin.ru
 * password: admin@admin.ru
 ### User:
 * email: user@user.ru
 * password: user@user.ru
-#### Dump bd - db/backup.sql (загружается автоматически)
+
 
 ## Задание #4
 Создание сайта для онлайн-заказа пиццы

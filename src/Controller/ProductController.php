@@ -6,13 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ProductRepository;
+use App\Repository\OrderRepository;
 use App\Repository\BasketRepository;
-// use Doctrine\ORM\EntityManagerInterface;
-// use App\Entity\Basket;
-// use App\Entity\Product;
-use App\Message\ProductMessage;
-// use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\ProductRepository;
+use App\Message\OrderMessage;
 use App\Service\BasketChangeProduct;
 use App\Service\BasketCreateProduct;
 use App\Service\BasketDeleteProduct;
@@ -72,11 +69,11 @@ class ProductController extends AbstractController
             ]
         );
     }
-    #[Route('/product/{id}/show', name: 'show')]
-    public function show(int $id, ProductRepository $productRepository, MessageBusInterface $bus): Response
+    #[Route('/order/{id}/buy', name: 'buy')]
+    public function show(int $id, OrderRepository $orderRepository, MessageBusInterface $bus): Response
     {
-        $product = $productRepository->find($id);
-        $bus->dispatch(new ProductMessage($product->getId(), []));
-        return $this->redirectToRoute('product', ['id' => $id]);
+        $order = $orderRepository->find($id);
+        $bus->dispatch(new orderMessage($order->getId(), []));
+        return $this->redirectToRoute('order', ['id' => $id]);
     }
 }

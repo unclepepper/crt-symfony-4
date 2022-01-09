@@ -9,18 +9,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\BasketRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OrderController extends AbstractController
 {
     #[Route('/order', name: 'order')]
-    public function index(BasketRepository $basketDoctrine, EntityManagerInterface $entityManager): Response
+    public function index(BasketRepository $basketDoctrine, OrderRepository $orderDoctrine, EntityManagerInterface $entityManager): Response
     {
         $baskets = $basketDoctrine->findAll();
+       
+        $orders = $orderDoctrine->findAll();
+
             
         return $this->render('order/index.html.twig', [
            
             'baskets' => $baskets,
+            'orders' => $orders,
+
         ]);
     }
     #[Route('/order/add', name: 'orderAdd')]
